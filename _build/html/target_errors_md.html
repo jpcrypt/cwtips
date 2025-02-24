@@ -1,0 +1,609 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ERROR: “Target did not ack” or “no trigger seen” &#8212; ChipWhisperer Tips and Tricks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'target_errors_md';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LIBUSB_ERROR_BUSY" href="libusb_error_busy.html" />
+    <link rel="prev" title="ERROR: “Target did not ack” or “no trigger seen”" href="target_errors.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ChipWhisperer Tips and Tricks - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ChipWhisperer Tips and Tricks - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    ChipWhisperer Tips and Tricks
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Skills</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="trig_count.html">How long is the target operation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_samples.html">How to capture more samples than the hardware supports?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stream.html">How to use streaming mode?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baud.html">How to change the clock frequency of SimpleSerial targets?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connect.html">Basic connection</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="segmented.html">How to use segmented capture?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequenced.html">How to use sequenced triggers?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Errors</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="target_errors.html">ERROR: “Target did not ack” or “no trigger seen”</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ERROR: “Target did not ack” or “no trigger seen”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libusb_error_busy.html">LIBUSB_ERROR_BUSY</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftarget_errors_md.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/target_errors_md.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ERROR: “Target did not ack” or “no trigger seen”</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-1-mismatched-simpleserial-protocol-versions">Possible Cause #1: Mismatched SimpleSerial Protocol Versions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-2-incorrect-baud-rate">Possible Cause #2: Incorrect Baud Rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-3-target-needs-a-reset">Possible Cause #3: Target Needs a Reset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-4-target-not-programmed-or-not-running-the-expected-firmware">Possible Cause #4: Target Not Programmed or Not Running the Expected Firmware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-5-firmware-problems">Possible Cause #5: Firmware Problems</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="error-target-did-not-ack-or-no-trigger-seen">
+<h1>ERROR: “Target did not ack” or “no trigger seen”<a class="headerlink" href="#error-target-did-not-ack-or-no-trigger-seen" title="Link to this heading">#</a></h1>
+<p>These are the two errors that users most often run into (if we go by <a class="reference external" href="https://forum.newae.com/search?q=target%20did%20not%20ack">forum
+questions</a>).</p>
+<p>The full error message is something like this:<br />
+<code class="docutils literal notranslate"><span class="pre">(ChipWhisperer</span> <span class="pre">Target</span> <span class="pre">ERROR|File</span> <span class="pre">SimpleSerial.py:351)</span> <span class="pre">Target</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">ack</span></code></p>
+<p>or:<br />
+<code class="docutils literal notranslate"><span class="pre">(ChipWhisperer</span> <span class="pre">Scope</span> <span class="pre">WARNING|File</span> <span class="pre">_OpenADCInterface.py:730)</span> <span class="pre">Timeout</span> <span class="pre">in</span> <span class="pre">OpenADC</span> <span class="pre">capture(),</span> <span class="pre">no</span> <span class="pre">trigger</span> <span class="pre">seen!</span> <span class="pre">Trigger</span> <span class="pre">forced,</span> <span class="pre">data</span> <span class="pre">is</span> <span class="pre">invalid.</span> <span class="pre">Status:</span> <span class="pre">13</span></code></p>
+<p>(the line numbers will change as the codebase evolves)</p>
+<p>While the errors are different, they are both often tied to target communication issues.</p>
+<p>Here we go over the most likely causes, and how to resolve them.</p>
+<p>These notes apply to all ChipWhisperer hardware and software.</p>
+<section id="possible-cause-1-mismatched-simpleserial-protocol-versions">
+<h2>Possible Cause #1: Mismatched SimpleSerial Protocol Versions<a class="headerlink" href="#possible-cause-1-mismatched-simpleserial-protocol-versions" title="Link to this heading">#</a></h2>
+<p>ChipWhisperer target firmware supports two different versions of the
+<a class="reference external" href="https://chipwhisperer.readthedocs.io/en/latest/simpleserial.html">SimpleSerial protocol</a>,
+and they are not compatible with each other.</p>
+<p>The same version must be used to (1) <strong>build the target firmware</strong>, and to
+(2) <strong>connect to the target</strong>.</p>
+<ol class="arabic simple">
+<li><p>In our firmware build system, the version used is specified as a
+command-line argument to the <code class="docutils literal notranslate"><span class="pre">make</span></code> command. So in our Jupyter notebooks,
+you’ll see something like the code below. Here, the <code class="docutils literal notranslate"><span class="pre">SS_VER</span></code> variable
+controls which protocol version is used to build the firmware:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SS_VER=&#39;SS_VER_2_1&#39;
+...
+%%bash -s &quot;$PLATFORM&quot; &quot;$CRYPTO_TARGET&quot; &quot;$SS_VER&quot;
+make PLATFORM=$1 CRYPTO_TARGET=$2 SS_VER=$3 -j
+
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>In our notebooks, connecting to the target is usually done by running
+<a class="reference external" href="https://github.com/newaetech/chipwhisperer-jupyter/blob/main/Setup_Scripts/Setup_Generic.ipynb"><code class="docutils literal notranslate"><span class="pre">Setup_Generic.ipynb</span></code></a>,
+which also uses the <code class="docutils literal notranslate"><span class="pre">SS_VER</span></code> definition to determine which protocol
+version Python will use to communicate with the target.</p></li>
+</ol>
+<p>If target compilation and target connection are done in the same notebook,
+they both use the same <code class="docutils literal notranslate"><span class="pre">SS_VER</span></code> and so there should be no protocol mismatch
+problem.</p>
+</section>
+<section id="possible-cause-2-incorrect-baud-rate">
+<h2>Possible Cause #2: Incorrect Baud Rate<a class="headerlink" href="#possible-cause-2-incorrect-baud-rate" title="Link to this heading">#</a></h2>
+<p>SimpleSerial communicates over UART; the baud rate defaults to a
+(version-dependent) specific value and assumes a specific target clock rate.</p>
+<p>If you change the target clock rate, the baud rate needs to be adjusted
+accordingly; see
+<a class="reference internal" href="baud.html"><span class="std std-doc">“How to change the clock frequency of SimpleSerial targets?”</span></a>
+to learn how.</p>
+</section>
+<section id="possible-cause-3-target-needs-a-reset">
+<h2>Possible Cause #3: Target Needs a Reset<a class="headerlink" href="#possible-cause-3-target-needs-a-reset" title="Link to this heading">#</a></h2>
+<p>Some targets require a reset after they are programmed, or after their clock
+is changed.</p>
+<p><a class="reference external" href="https://github.com/newaetech/chipwhisperer-jupyter/blob/main/Setup_Scripts/Setup_Generic.ipynb"><code class="docutils literal notranslate"><span class="pre">Setup_Generic.ipynb</span></code></a>
+defines a target-dependent <code class="docutils literal notranslate"><span class="pre">reset_target()</span></code> function; there is also a manual
+reset button on our CW308 and CW313 target boards.</p>
+<p>Resetting the target should only be required once; if you find yourself
+having to reset the target repeatedly, this is indicative of problems with
+your firmware.</p>
+</section>
+<section id="possible-cause-4-target-not-programmed-or-not-running-the-expected-firmware">
+<h2>Possible Cause #4: Target Not Programmed or Not Running the Expected Firmware<a class="headerlink" href="#possible-cause-4-target-not-programmed-or-not-running-the-expected-firmware" title="Link to this heading">#</a></h2>
+<p>Seems obvious but it’s happened to all of us!</p>
+</section>
+<section id="possible-cause-5-firmware-problems">
+<h2>Possible Cause #5: Firmware Problems<a class="headerlink" href="#possible-cause-5-firmware-problems" title="Link to this heading">#</a></h2>
+<p>If you’re implementing your own target firmware, that may well be where the
+problem lies. Any number of things can go wrong; these errors indicate that
+the target isn’t responding as expected. Using a debugger is usually the
+best first step towards figuring out why.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="target_errors.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ERROR: “Target did not ack” or “no trigger seen”</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="libusb_error_busy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">LIBUSB_ERROR_BUSY</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-1-mismatched-simpleserial-protocol-versions">Possible Cause #1: Mismatched SimpleSerial Protocol Versions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-2-incorrect-baud-rate">Possible Cause #2: Incorrect Baud Rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-3-target-needs-a-reset">Possible Cause #3: Target Needs a Reset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-4-target-not-programmed-or-not-running-the-expected-firmware">Possible Cause #4: Target Not Programmed or Not Running the Expected Firmware</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#possible-cause-5-firmware-problems">Possible Cause #5: Firmware Problems</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NewAE
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

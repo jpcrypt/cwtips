@@ -1,0 +1,34 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+    - caption: Basic Skills
+      chapters:
+          - file: trig_count
+          - file: more_samples
+          - file: stream
+          - file: baud
+          - file: external_clock
+          - file: connect
+
+    - caption: Advanced Usage
+      chapters:
+          - file: segmented
+          - file: sequenced
+          - file: fast_captures
+          - file: get_trigger_times
+
+    - caption: Common Errors
+      chapters:
+          - file: target_errors
+          - file: libusb_error_busy
+
+    - caption: Tricky Questions
+      chapters:
+          - file: finding_instructions
+    - caption: RTFM
+      chapters:
+          - file: rtfm/index
+

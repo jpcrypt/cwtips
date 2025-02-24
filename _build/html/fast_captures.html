@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>How to speed up captures? &#8212; ChipWhisperer Tips and Tricks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"be50f2ca3c4c4933a14d235809064585": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "11406cae3af0415c84a133a1525837a9": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "c003bd7acc7f42598746d15403af1756": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_be50f2ca3c4c4933a14d235809064585", "max": 100.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_11406cae3af0415c84a133a1525837a9", "tabbable": null, "tooltip": null, "value": 100.0}}, "94b6d6a21c9c4963b1e46e35c1c4e546": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b1922ccf15cc45cab4f36a1870b2b990": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "4a810efa42f74075baac274f6db4fe82": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_94b6d6a21c9c4963b1e46e35c1c4e546", "placeholder": "\u200b", "style": "IPY_MODEL_b1922ccf15cc45cab4f36a1870b2b990", "tabbable": null, "tooltip": null, "value": "100%"}}, "a7d6924ecf994e29a3c05508f893971f": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "6f8cf353c30f45b3812e417bfbf88d85": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "ef9043e727a946ddad5889e5498f6db5": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_a7d6924ecf994e29a3c05508f893971f", "placeholder": "\u200b", "style": "IPY_MODEL_6f8cf353c30f45b3812e417bfbf88d85", "tabbable": null, "tooltip": null, "value": "\u2007100/100\u2007[00:03&lt;00:00,\u200730.62it/s]"}}, "a4110c3473954f81b68f2b1ca46141aa": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "a3bf4b71e8644289969deaf8037a39da": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_4a810efa42f74075baac274f6db4fe82", "IPY_MODEL_c003bd7acc7f42598746d15403af1756", "IPY_MODEL_ef9043e727a946ddad5889e5498f6db5"], "layout": "IPY_MODEL_a4110c3473954f81b68f2b1ca46141aa", "tabbable": null, "tooltip": null}}, "5fbd4bc3658e41e9a1edb1d482ae002b": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2634d20f7f8f4cedbf97c4843cf498af": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "0690f6b233cd474eb2d879c97c7a0125": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_5fbd4bc3658e41e9a1edb1d482ae002b", "max": 100.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_2634d20f7f8f4cedbf97c4843cf498af", "tabbable": null, "tooltip": null, "value": 100.0}}, "d63d914913674097ba54e5f6f75480a1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "81d952dd996c42ad91d86b6131a06b72": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "b9de934ade5b4693955803721c4d729c": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_d63d914913674097ba54e5f6f75480a1", "placeholder": "\u200b", "style": "IPY_MODEL_81d952dd996c42ad91d86b6131a06b72", "tabbable": null, "tooltip": null, "value": "100%"}}, "31b03c180a3a4693b08728c7b7143f72": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1597c0cfc9564d0191105b91521c87df": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "c79fa1c29a0c47a2a79a30100e93af1a": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_31b03c180a3a4693b08728c7b7143f72", "placeholder": "\u200b", "style": "IPY_MODEL_1597c0cfc9564d0191105b91521c87df", "tabbable": null, "tooltip": null, "value": "\u2007100/100\u2007[00:01&lt;00:00,\u200750.64it/s]"}}, "d9b601572f6548ceb2deabe5b16c6e01": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "cfb17ba95e654ce4bf3661feee77c98a": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_b9de934ade5b4693955803721c4d729c", "IPY_MODEL_0690f6b233cd474eb2d879c97c7a0125", "IPY_MODEL_c79fa1c29a0c47a2a79a30100e93af1a"], "layout": "IPY_MODEL_d9b601572f6548ceb2deabe5b16c6e01", "tabbable": null, "tooltip": null}}, "511ca8ee46e54742886d7577dafddf3a": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "faaf2c3443a248e2a3858af85957c86d": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "7e41e415d7ee4012b2ba330aefc7916a": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_511ca8ee46e54742886d7577dafddf3a", "max": 100.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_faaf2c3443a248e2a3858af85957c86d", "tabbable": null, "tooltip": null, "value": 100.0}}, "8d5693d6666a4887963374176cfe56ac": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "bad35370670d41219ebd037cc0cc3a65": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "6d37b5e55c244cd4920f018f3093bd68": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_8d5693d6666a4887963374176cfe56ac", "placeholder": "\u200b", "style": "IPY_MODEL_bad35370670d41219ebd037cc0cc3a65", "tabbable": null, "tooltip": null, "value": "100%"}}, "46ce1e4b6b594d44897ab7bd95f1b787": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "94c9f3dc905447b98912cba1402fc12e": {"model_name": "HTMLStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "StyleView", "background": null, "description_width": "", "font_size": null, "text_color": null}}, "6c05db6f395f41d9b4bb760ad2965c84": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HTMLView", "description": "", "description_allow_html": false, "layout": "IPY_MODEL_46ce1e4b6b594d44897ab7bd95f1b787", "placeholder": "\u200b", "style": "IPY_MODEL_94c9f3dc905447b98912cba1402fc12e", "tabbable": null, "tooltip": null, "value": "\u2007100/100\u2007[00:00&lt;00:00,\u2007224.69it/s]"}}, "82d6a542491041649fd10b31a6c231be": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "edf1110f885945818e13bbf5517dee81": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "2.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "2.0.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "2.0.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_6d37b5e55c244cd4920f018f3093bd68", "IPY_MODEL_7e41e415d7ee4012b2ba330aefc7916a", "IPY_MODEL_6c05db6f395f41d9b4bb760ad2965c84"], "layout": "IPY_MODEL_82d6a542491041649fd10b31a6c231be", "tabbable": null, "tooltip": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'fast_captures';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ERROR: “Target did not ack” or “no trigger seen”" href="target_errors.html" />
+    <link rel="prev" title="How to use sequenced triggers?" href="sequenced.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ChipWhisperer Tips and Tricks - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ChipWhisperer Tips and Tricks - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    ChipWhisperer Tips and Tricks
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Skills</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="trig_count.html">How long is the target operation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_samples.html">How to capture more samples than the hardware supports?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stream.html">How to use streaming mode?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baud.html">How to change the clock frequency of SimpleSerial targets?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connect.html">Basic connection</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="segmented.html">How to use segmented capture?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequenced.html">How to use sequenced triggers?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to speed up captures?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Errors</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="target_errors.html">ERROR: “Target did not ack” or “no trigger seen”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libusb_error_busy.html">LIBUSB_ERROR_BUSY</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tricky Questions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="finding_instructions.html">Which target instruction does this power sample correspond to?</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffast_captures.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/fast_captures.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>How to speed up captures?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-speed-up-captures">
+<h1>How to speed up captures?<a class="headerlink" href="#how-to-speed-up-captures" title="Link to this heading">#</a></h1>
+<p><strong>Supported Capture Hardware:</strong><br />
+❌ CW-Nano<br />
+❌ CW-Lite<br />
+❌ CW-Pro<br />
+✅ CW-Husky</p>
+<p><strong>Required ChipWhisperer software installation:</strong><br />
+✅ any release</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> &#39;connect.ipynb&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get fast captures, we must first understand what makes captures slow. Here we assume the target is running our <code class="docutils literal notranslate"><span class="pre">simpleserial-aes</span></code> firmware, but the principles are applicable to other target firmware.</p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">cw.capture_trace()</span></code> kicks off the following steps:</p>
+<ol class="arabic simple">
+<li><p>Send the key and plaintext to the target over UART.</p></li>
+<li><p>After receiving the plaintext, the target begins its encryption operation.</p></li>
+<li><p>The target sends the encryption result back over UART.</p></li>
+<li><p>ChipWhisperer reads the recorded power samples.</p></li>
+</ol>
+<p>Let’s see how fast this can go:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tnrange</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tnrange</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">capture_trace</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="n">elapsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">starttime</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Elapsed time: </span><span class="si">%1.3f</span><span class="s1"> seconds; </span><span class="si">%5.1f</span><span class="s1"> captures/second&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">100</span><span class="o">/</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "a3bf4b71e8644289969deaf8037a39da"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 3.277 seconds;  30.5 captures/second
+</pre></div>
+</div>
+</div>
+</div>
+<p>Throughput will depend on many factors but should be on the order of 30 encryptions per second.</p>
+<p>For most of our notebooks, this is more than fine, since only a few hundred traces are needed.</p>
+<p>But some side-channel attacks require orders of magnitude more traces. Trace aquisition speed can then become a limiting factor.</p>
+<p>The good news is that with some small tweaks to the target firmware and to the capture code, things can be made to go <em>a lot</em> faster.</p>
+<p>With a logic analyzer, you can see how long each of the steps above take:</p>
+<p><img alt="Thresholds" src="_images/SSv1_throughput.png" /></p>
+<p>We can see that the target operation (indicated by the <code class="docutils literal notranslate"><span class="pre">GPIO4</span></code> pulse) takes very little time compared to steps 1, 2 and 4.</p>
+<p>This was with <code class="docutils literal notranslate"><span class="pre">scope.adc.samples</span> <span class="pre">=</span> <span class="pre">5000</span></code>; decreasing this does not accelerate the capture because of how USB transfers work, however increasing the number of samples past a certain point does slow it down.</p>
+<p>One thing we can do is to switch to the version 2 of the SimpleSerial protocol, which runs at 230400 bps instead of 38400 bps:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cw</span><span class="o">.</span><span class="n">program_target</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">cw</span><span class="o">.</span><span class="n">programmers</span><span class="o">.</span><span class="n">SAM4SProgrammer</span><span class="p">,</span> <span class="s1">&#39;fw/simpleserial-aes-SSv2.hex&#39;</span><span class="p">)</span>
+<span class="n">target</span><span class="o">.</span><span class="n">dis</span><span class="p">()</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">target</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">cw</span><span class="o">.</span><span class="n">targets</span><span class="o">.</span><span class="n">SimpleSerial2</span><span class="p">)</span>
+<span class="n">reset_target</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tnrange</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tnrange</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">capture_trace</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="n">elapsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">starttime</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Elapsed time: </span><span class="si">%1.3f</span><span class="s1"> seconds; </span><span class="si">%5.1f</span><span class="s1"> captures/second&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="mi">100</span><span class="o">/</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "cfb17ba95e654ce4bf3661feee77c98a"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 1.984 seconds;  50.4 captures/second
+</pre></div>
+</div>
+</div>
+</div>
+<p>This gives a nice boost; now most of the time is spent reading data back:</p>
+<p><img alt="Thresholds" src="_images/SSv2_throughput.png" /></p>
+<p>We could get a much larger throughput boost if we could avoid reading the captured data after every single target encryption, and instead read the capture samples from multiple target operations into a single burst.</p>
+<p>If you’re familiar with <a class="reference internal" href="segmented.html"><span class="std std-doc">segmented capture</span></a>, then you know where this is going: we can ask Husky to capture <code class="docutils literal notranslate"><span class="pre">X</span></code> samples each time is is triggered.</p>
+<p>A <strong>bad</strong> way to do this is shown below. The problem here is that Python and the host PC are still in the loop, sending each plaintext one at a time, waiting for the target to complete its encryption before sending the next plaintext.</p>
+<p>Not only will this limit the trace acquisition speed, it’s also possible (due to OS delays on the host PC) that the trigger is “missed” (i.e. TIO4 goes high and back low before the <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">not</span> <span class="pre">scope.io.tio_states[3]</span></code> line).</p>
+<p><strong>Don’t do it this way – this is only shown as a stepping stone towards a better solution.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;***WARNING: this is a bad example, DO NOT BORROW IT!***&#39;</span><span class="p">)</span>
+
+<span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">samples</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">scope</span><span class="o">.</span><span class="n">arm</span><span class="p">()</span>
+
+<span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tnrange</span><span class="p">(</span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="p">):</span>
+    <span class="c1"># make the target encrypt:</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+    <span class="c1"># wait for TIO4 to go high:</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">scope</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">tio_states</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+        <span class="k">pass</span>
+    <span class="c1"># wait for TIO4 to go back low:</span>
+    <span class="k">while</span> <span class="n">scope</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">tio_states</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+        <span class="k">pass</span>
+
+<span class="n">elapsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">starttime</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Elapsed time: </span><span class="si">%1.3f</span><span class="s1"> seconds; </span><span class="si">%5.1f</span><span class="s1"> captures/second&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="o">/</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()))</span>
+
+<span class="c1"># clear things up just in case:</span>
+<span class="n">scope</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">arm</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">scope</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>***WARNING: this is a bad example, DO NOT BORROW IT!***
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "edf1110f885945818e13bbf5517dee81"}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 0.450 seconds; 222.5 captures/second
+</pre></div>
+</div>
+</div>
+</div>
+<p>Still, this is a nice speedup (when it works!):
+<img alt="Thresholds" src="_images/bad_segments.png" /></p>
+<p>To do this <strong>properly</strong>, we need to take Python and the host PC out of the loop: we want to send a single message that kicks off <strong>all</strong> the encryptions.</p>
+<p>This is where you may have to get creative; the solution will depend on the target operation and the objective of your attack.</p>
+<p>Our stock <code class="docutils literal notranslate"><span class="pre">simpleserial-aes</span></code> firmware has an additional command <code class="docutils literal notranslate"><span class="pre">'f'</span></code> which can be used to kick off up to <span class="math notranslate nohighlight">\(2^{16}-1\)</span> encryptions from a single plaintext: the ciphertext from encryption <span class="math notranslate nohighlight">\(i\)</span> becomes the plaintext for encryption <span class="math notranslate nohighlight">\(i+1\)</span>.</p>
+<p>Let’s try it out. First, we revert to the SSv1 firmware, because this feature isn’t included in the SSv2 firmware:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cw</span><span class="o">.</span><span class="n">program_target</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">cw</span><span class="o">.</span><span class="n">programmers</span><span class="o">.</span><span class="n">SAM4SProgrammer</span><span class="p">,</span> <span class="s1">&#39;fw/simpleserial-trace-SSv1.hex&#39;</span><span class="p">)</span>
+<span class="n">target</span><span class="o">.</span><span class="n">dis</span><span class="p">()</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">target</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">cw</span><span class="o">.</span><span class="n">targets</span><span class="o">.</span><span class="n">SimpleSerial</span><span class="p">)</span>
+<span class="n">reset_target</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># tell the target how many encryptions to do (scope.adc.segments):</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)))</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_wait_ack</span><span class="p">()</span>
+
+<span class="n">scope</span><span class="o">.</span><span class="n">arm</span><span class="p">()</span>
+<span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<span class="c1">#target.flush()</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">poll_done</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wave</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_last_trace</span><span class="p">()</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">simpleserial_read</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">elapsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">starttime</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Elapsed time: </span><span class="si">%1.3f</span><span class="s1"> seconds; </span><span class="si">%5.1f</span><span class="s1"> captures/second&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="o">/</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 0.133 seconds; 753.0 captures/second
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have some serious speed!
+<img alt="Thresholds" src="_images/fast_segments.png" /></p>
+<p>We can go even faster, with more segments and fewer samples per segment:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">samples</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_wait_ack</span><span class="p">()</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)))</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_wait_ack</span><span class="p">()</span>
+
+<span class="n">scope</span><span class="o">.</span><span class="n">arm</span><span class="p">()</span>
+<span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<span class="c1">#target.flush()</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">poll_done</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">wave</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get_last_trace</span><span class="p">()</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">simpleserial_read</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">elapsed</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">starttime</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Elapsed time: </span><span class="si">%1.3f</span><span class="s1"> seconds; </span><span class="si">%5.1f</span><span class="s1"> captures/second&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">(),</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="o">/</span><span class="n">elapsed</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elapsed time: 1.125 seconds; 888.9 captures/second
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is an approximately 29x speedup over the basic <code class="docutils literal notranslate"><span class="pre">cw.capture_trace()</span></code>.</p>
+<p>If you want to acquire a very large number of traces, you’ll have to figure out how to efficiently store these traces as they come in.</p>
+<p>Oh- and we can still verify that the target encryptions were done correctly, by checking the result of the very last encryption, which the target sent back to us:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+<span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
+<span class="n">ct</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">segments</span><span class="p">):</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ct</span> <span class="o">==</span> <span class="n">resp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">errors</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "venv39"
+        },
+        kernelOptions: {
+            name: "venv39",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'venv39'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="sequenced.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">How to use sequenced triggers?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="target_errors.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ERROR: “Target did not ack” or “no trigger seen”</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NewAE
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

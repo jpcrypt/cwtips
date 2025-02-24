@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ERROR: Target did not ack &#8212; ChipWhisperer Tips and Tricks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ack';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic connection" href="connect.html" />
+    <link rel="prev" title="How to change the clock frequency of SimpleSerial targets?" href="baud.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ChipWhisperer Tips and Tricks - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ChipWhisperer Tips and Tricks - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    ChipWhisperer Tips and Tricks
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="trig_count.html">How long is the target operation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more_samples.html">Capturing more samples than the hardware supports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stream.html">How to use streaming mode?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baud.html">How to change the clock frequency of SimpleSerial targets?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ERROR: Target did not ack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connect.html">Basic connection</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fack.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ack.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ERROR: Target did not ack</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="error-target-did-not-ack">
+<h1>ERROR: Target did not ack<a class="headerlink" href="#error-target-did-not-ack" title="Link to this heading">#</a></h1>
+<p>This is one of the errors that users most often have trouble resolving (if we go by <a class="reference external" href="https://forum.newae.com/search?q=target%20did%20not%20ack">forum questions</a>).</p>
+<p>The actual error is something like this:<br />
+<code class="docutils literal notranslate"><span class="pre">(ChipWhisperer</span> <span class="pre">Target</span> <span class="pre">ERROR|File</span> <span class="pre">SimpleSerial.py:351)</span> <span class="pre">Target</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">ack</span></code><br />
+(the line number will change as the codebase evolves)</p>
+<p>Here we go over the most likely causes, and how to resolve them.</p>
+<p><strong>Supported Capture Hardware:</strong><br />
+✅ CW-Nano<br />
+✅ CW-Lite<br />
+✅ CW-Pro<br />
+✅ CW-Husky</p>
+<p><strong>Required ChipWhisperer software installation:</strong><br />
+❌ not released yet<br />
+✅ <a class="reference external" href="https://github.com/newaetech/chipwhisperer/tree/develop">develop branch</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> &#39;connect.ipynb&#39;
+<span class="n">cw</span><span class="o">.</span><span class="n">scope_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">cw</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span> <span class="c1"># turn warnings back on</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="o">.</span><span class="n">_name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Simple Serial&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s confirm the default settings that <a class="reference internal" href="connect.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">connect.ipynb</span></code></span></a> gave us via <code class="docutils literal notranslate"><span class="pre">scope.default_setup()</span></code> and <code class="docutils literal notranslate"><span class="pre">cw.target()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CLOCK</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">clkgen_freq</span>
+<span class="n">BAUD</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">baud</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Clock: </span><span class="si">%f</span><span class="s1"> MHz</span><span class="se">\n</span><span class="s1">Baud: </span><span class="si">%d</span><span class="s1"> bps&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">CLOCK</span><span class="p">,</span> <span class="n">BAUD</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clock: 7370129.870130 MHz
+Baud: 38400 bps
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can confirm that communication is working by running a capture.</p>
+<p>If your target is running <code class="docutils literal notranslate"><span class="pre">simpleserial-aes</span></code> firmware, this will run the target AES operation. For different target firmware, substitute with what’s needed to make your target “go”:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="o">.</span><span class="n">baud</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>38400
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="o">.</span><span class="n">baud</span> <span class="o">=</span> <span class="mi">50123</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="o">.</span><span class="n">baud</span> <span class="o">=</span> <span class="mi">38400</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scope</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">tio1</span> <span class="o">=</span> <span class="s2">&quot;serial_tx&quot;</span>
+<span class="n">scope</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">tio2</span> <span class="o">=</span> <span class="s2">&quot;serial_rx&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scope</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">tio1</span> <span class="o">=</span> <span class="s2">&quot;serial_rx&quot;</span>
+<span class="n">scope</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">tio2</span> <span class="o">=</span> <span class="s2">&quot;serial_tx&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">capture_trace</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">USBErrorIO</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">trace</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">capture_trace</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/__init__.py:502,</span> in <span class="ni">capture_trace</span><span class="nt">(scope, target, plaintext, key, ack, poll_done, as_int, always_send_key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span> <span class="k">if</span> <span class="n">plaintext</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span>     <span class="n">target</span><span class="o">.</span><span class="n">simpleserial_write</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">plaintext</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">502</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">poll_done</span><span class="o">=</span><span class="n">poll_done</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="k">while</span> <span class="ow">not</span> <span class="n">target</span><span class="o">.</span><span class="n">is_done</span><span class="p">():</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/scopes/OpenADC.py:875,</span> in <span class="ni">OpenADC.capture</span><span class="nt">(self, poll_done)</span>
+<span class="g g-Whitespace">    </span><span class="mi">873</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span>     <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">samples</span>
+<span class="ne">--&gt; </span><span class="mi">875</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capture_read</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">876</span> <span class="k">return</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">b</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/scopes/OpenADC.py:819,</span> in <span class="ni">OpenADC._capture_read</span><span class="nt">(self, num_points)</span>
+<span class="g g-Whitespace">    </span><span class="mi">816</span>     <span class="n">num_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">samples</span>
+<span class="g g-Whitespace">    </span><span class="mi">817</span> <span class="n">scope_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Expecting </span><span class="si">{}</span><span class="s2"> points&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_points</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">819</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sc</span><span class="o">.</span><span class="n">readData</span><span class="p">(</span><span class="n">num_points</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">821</span> <span class="n">scope_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Read </span><span class="si">{}</span><span class="s2"> datapoints&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_points</span><span class="p">)))</span>
+<span class="g g-Whitespace">    </span><span class="mi">822</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_points</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_points</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_points</span><span class="p">):</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/scopes/_OpenADCInterface.py:774,</span> in <span class="ni">OpenADCInterface.readData</span><span class="nt">(self, NumberPoints, progressDialog)</span>
+<span class="g g-Whitespace">    </span><span class="mi">772</span> <span class="n">scope_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reading data from OpenADC (NumberPoints=</span><span class="si">%d</span><span class="s2">)...&quot;</span> <span class="o">%</span> <span class="n">NumberPoints</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">773</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_husky</span><span class="p">:</span> 
+<span class="ne">--&gt; </span><span class="mi">774</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">readHuskyData</span><span class="p">(</span><span class="n">NumberPoints</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">775</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream_mode</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">776</span>     <span class="c1"># Process data</span>
+<span class="g g-Whitespace">    </span><span class="mi">777</span>     <span class="n">bsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial</span><span class="o">.</span><span class="n">cmdReadStream_size_of_fpgablock</span><span class="p">()</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/scopes/_OpenADCInterface.py:925,</span> in <span class="ni">OpenADCInterface.readHuskyData</span><span class="nt">(self, NumberPoints)</span>
+<span class="g g-Whitespace">    </span><span class="mi">922</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_fifo_read_enable</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span>     <span class="c1"># switch FPGA and SAM3U into fast read timing mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">924</span>     <span class="bp">self</span><span class="o">.</span><span class="n">setFastSMC</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">925</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="n">CODE_READ</span><span class="p">,</span> <span class="s2">&quot;ADCREAD_ADDR&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">bytesToRead</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">926</span> <span class="c1"># switch FPGA and SAM3U back to regular read timing mode</span>
+<span class="g g-Whitespace">    </span><span class="mi">927</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_fifo_read_enable</span><span class="p">:</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/scopes/_OpenADCInterface.py:288,</span> in <span class="ni">OpenADCInterface.sendMessage</span><span class="nt">(self, mode, address, payload, Validate, maxResp, readMask)</span>
+<span class="g g-Whitespace">    </span><span class="mi">286</span> <span class="n">address</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_address_str2int</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span> <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="n">CODE_WRITE</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">288</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg_read</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">maxResp</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">289</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg_write</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span> <span class="k">if</span> <span class="n">Validate</span><span class="p">:</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/scopes/_OpenADCInterface.py:212,</span> in <span class="ni">OpenADCInterface.msg_read</span><span class="nt">(self, address, max_resp)</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="n">scope_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The error trace below will show you what led to this:&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>         <span class="k">raise</span> <span class="ne">ValueError</span>
+<span class="ne">--&gt; </span><span class="mi">212</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial</span><span class="o">.</span><span class="n">cmdReadMem</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">max_resp</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_send_msg_hdr</span><span class="p">(</span><span class="n">CODE_READ</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/hardware/naeusb/naeusb.py:864,</span> in <span class="ni">NAEUSB.cmdReadMem</span><span class="nt">(self, addr, dlen)</span>
+<span class="g g-Whitespace">    </span><span class="mi">858</span> <span class="k">def</span> <span class="nf">cmdReadMem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dlen</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytearray</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">859</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">860</span><span class="sd">     Send command to read over external memory interface from FPGA. Automatically</span>
+<span class="g g-Whitespace">    </span><span class="mi">861</span><span class="sd">     decides to use control-transfer or bulk-endpoint transfer based on data length.</span>
+<span class="g g-Whitespace">    </span><span class="mi">862</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">864</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">usbserializer</span><span class="o">.</span><span class="n">cmdReadMem</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">dlen</span><span class="p">)</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/hardware/naeusb/naeusb.py:612,</span> in <span class="ni">NAEUSB_Backend.cmdReadMem</span><span class="nt">(self, addr, dlen)</span>
+<span class="g g-Whitespace">    </span><span class="mi">610</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cmd_readmem_ctrl</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">dlen</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">611</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">612</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cmd_readmem_bulk</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">dlen</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">614</span> <span class="n">naeusb_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;FPGA_READ: bulk: </span><span class="si">{}</span><span class="s2">, addr: </span><span class="si">{:08X}</span><span class="s2">, dlen: </span><span class="si">{:08X}</span><span class="s2">, response: </span><span class="si">{}</span><span class="s2">&quot;</span>\
+<span class="g g-Whitespace">    </span><span class="mi">615</span>     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;yes&quot;</span> <span class="k">if</span> <span class="n">dlen</span> <span class="o">&gt;=</span> <span class="n">NAEUSB_CTRL_IO_THRESHOLD</span> <span class="k">else</span> <span class="s2">&quot;no&quot;</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">dlen</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">616</span> <span class="k">return</span> <span class="n">data</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/hardware/naeusb/naeusb.py:601,</span> in <span class="ni">NAEUSB_Backend._cmd_readmem_bulk</span><span class="nt">(self, addr, dlen)</span>
+<span class="g g-Whitespace">    </span><span class="mi">595</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Reads data from the external memory interface over the bulk-transfer endpoint.</span>
+<span class="g g-Whitespace">    </span><span class="mi">596</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">597</span><span class="sd"> Returns:</span>
+<span class="g g-Whitespace">    </span><span class="mi">598</span><span class="sd">     The received data.</span>
+<span class="g g-Whitespace">    </span><span class="mi">599</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">600</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cmd_ctrl_send_header</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">dlen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD_READMEM_BULK</span><span class="p">);</span>
+<span class="ne">--&gt; </span><span class="mi">601</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_read</span><span class="p">(</span><span class="n">dlen</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/hardware/naeusb/naeusb.py:559,</span> in <span class="ni">NAEUSB_Backend._bulk_read</span><span class="nt">(self, data, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Reads data over the bulk-transfer endpoint.</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span><span class="sd"> Returns:</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span><span class="sd">     The received data.</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">558</span> <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">559</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle</span><span class="o">.</span><span class="n">bulkRead</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rep</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/usb1/__init__.py:1413,</span> in <span class="ni">USBDeviceHandle.bulkRead</span><span class="nt">(self, endpoint, length, timeout)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1411</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_buffer</span> <span class="o">=</span> <span class="n">create_binary_buffer</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1412</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1413</span>     <span class="n">transferred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulkTransfer</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1414</span> <span class="c1"># pylint: disable=undefined-variable</span>
+<span class="g g-Whitespace">   </span><span class="mi">1415</span> <span class="k">except</span> <span class="n">USBErrorTimeout</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1416</span>     <span class="c1"># pylint: enable=undefined-variable</span>
+
+<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/usb1/__init__.py:1359,</span> in <span class="ni">USBDeviceHandle._bulkTransfer</span><span class="nt">(self, endpoint, data, length, timeout)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1357</span> <span class="n">transferred</span> <span class="o">=</span> <span class="n">c_int</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1358</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1359</span>     <span class="n">mayRaiseUSBError</span><span class="p">(</span><span class="n">libusb1</span><span class="o">.</span><span class="n">libusb_bulk_transfer</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1360</span>         <span class="bp">self</span><span class="o">.</span><span class="n">__handle</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">byref</span><span class="p">(</span><span class="n">transferred</span><span class="p">),</span> <span class="n">timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1361</span>     <span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1362</span> <span class="c1"># pylint: disable=undefined-variable</span>
+<span class="g g-Whitespace">   </span><span class="mi">1363</span> <span class="k">except</span> <span class="n">USBErrorTimeout</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1364</span>     <span class="c1"># pylint: enable=undefined-variable</span>
+
+<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/usb1/__init__.py:128,</span> in <span class="ni">mayRaiseUSBError</span><span class="nt">(value, __raiseUSBError)</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span> <span class="k">def</span> <span class="nf">mayRaiseUSBError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>         <span class="n">value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="c1"># Avoid globals lookup on call to work during interpreter shutdown.</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>         <span class="n">__raiseUSBError</span><span class="o">=</span><span class="n">raiseUSBError</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span>     <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">128</span>         <span class="n">__raiseUSBError</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span>     <span class="k">return</span> <span class="n">value</span>
+
+<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/usb1/__init__.py:120,</span> in <span class="ni">raiseUSBError</span><span class="nt">(value, __STATUS_TO_EXCEPTION_DICT, __USBError)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="k">def</span> <span class="nf">raiseUSBError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>         <span class="n">value</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>         <span class="c1"># Avoid globals lookup on call to work during interpreter shutdown.</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>         <span class="n">__STATUS_TO_EXCEPTION_DICT</span><span class="o">=</span><span class="n">STATUS_TO_EXCEPTION_DICT</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>         <span class="n">__USBError</span><span class="o">=</span><span class="n">USBError</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="p">):</span> <span class="c1"># pylint: disable=dangerous-default-value</span>
+<span class="ne">--&gt; </span><span class="mi">120</span>     <span class="k">raise</span> <span class="n">__STATUS_TO_EXCEPTION_DICT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">__USBError</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="ne">USBErrorIO</span>: LIBUSB_ERROR_IO [-1]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="n">always_send</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(ChipWhisperer Target ERROR|File SimpleSerial.py:318) Target did not ack
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">Warning</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">target</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="n">always_send</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nn">File ~/git/cw_develop/software/chipwhisperer/capture/targets/SimpleSerial.py:554,</span> in <span class="ni">SimpleSerial.set_key</span><span class="nt">(self, key, ack, timeout, always_send)</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span>     <span class="k">if</span> <span class="n">ack</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simpleserial_wait_ack</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">554</span>             <span class="k">raise</span> <span class="ne">Warning</span><span class="p">(</span><span class="s2">&quot;Device failed to ack&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span>     <span class="n">target_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Key unchanged, skipping send&quot;</span><span class="p">)</span>
+
+<span class="ne">Warning</span>: Device failed to ack
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cw.capture_trace<span class="o">?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Red">Signature:</span>
+cw<span class=" -Color -Color-Blue">.</span>capture_trace<span class=" -Color -Color-Blue">(</span>
+    scope<span class=" -Color -Color-Blue">:</span> Union<span class=" -Color -Color-Blue">[</span>chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>scopes<span class=" -Color -Color-Blue">.</span>OpenADC<span class=" -Color -Color-Blue">.</span>OpenADC<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>scopes<span class=" -Color -Color-Blue">.</span>cwnano<span class=" -Color -Color-Blue">.</span>CWNano<span class=" -Color -Color-Blue">],</span>
+    target<span class=" -Color -Color-Blue">:</span> Union<span class=" -Color -Color-Blue">[</span>chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>CW305<span class=" -Color -Color-Blue">.</span>CW305<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>CW305_ECC<span class=" -Color -Color-Blue">.</span>CW305_ECC<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>CW310<span class=" -Color -Color-Blue">.</span>CW310<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>CW340<span class=" -Color -Color-Blue">.</span>CW340<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>SimpleSerial<span class=" -Color -Color-Blue">.</span>SimpleSerial<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>SimpleSerial2<span class=" -Color -Color-Blue">.</span>SimpleSerial2<span class=" -Color -Color-Blue">,</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>capture<span class=" -Color -Color-Blue">.</span>targets<span class=" -Color -Color-Blue">.</span>SimpleSerial2<span class=" -Color -Color-Blue">.</span>SimpleSerial2_CDC<span class=" -Color -Color-Blue">],</span>
+    plaintext<span class=" -Color -Color-Blue">:</span> chipwhisperer<span class=" -Color -Color-Blue">.</span>common<span class=" -Color -Color-Blue">.</span>utils<span class=" -Color -Color-Blue">.</span>util<span class=" -Color -Color-Blue">.</span>CWByteArray<span class=" -Color -Color-Blue">,</span>
+    key<span class=" -Color -Color-Blue">:</span> Optional<span class=" -Color -Color-Blue">[</span>chipwhisperer<span class=" -Color -Color-Blue">.</span>common<span class=" -Color -Color-Blue">.</span>utils<span class=" -Color -Color-Blue">.</span>util<span class=" -Color -Color-Blue">.</span>CWByteArray<span class=" -Color -Color-Blue">]</span> <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">None</span><span class=" -Color -Color-Blue">,</span>
+    ack<span class=" -Color -Color-Blue">:</span> bool <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">True</span><span class=" -Color -Color-Blue">,</span>
+    poll_done<span class=" -Color -Color-Blue">:</span> bool <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
+    as_int<span class=" -Color -Color-Blue">:</span> bool <span class=" -Color -Color-Blue">=</span> <span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
+    always_send_key<span class=" -Color -Color-Blue">=</span><span class=" -Color -Color-Green">False</span><span class=" -Color -Color-Blue">,</span>
+<span class=" -Color -Color-Blue">)</span> <span class=" -Color -Color-Blue">-&gt;</span> Optional<span class=" -Color -Color-Blue">[</span>chipwhisperer<span class=" -Color -Color-Blue">.</span>common<span class=" -Color -Color-Blue">.</span>traces<span class=" -Color -Color-Blue">.</span>Trace<span class=" -Color -Color-Blue">]</span>
+<span class=" -Color -Color-Red">Docstring:</span>
+Capture a trace, sending plaintext and key
+
+Does all individual steps needed to capture a trace (arming the scope
+sending the key/plaintext, getting the trace data back, etc.). Uses
+target.output_len as the length of the expected target reponse for
+simpleserial.
+
+Args:
+    scope (ScopeTemplate): Scope object to use for capture.
+    target (TargetTemplate): Target object to read/write text from.
+    plaintext (bytearray): Plaintext to send to the target. Should be
+        unencoded bytearray (will be converted to SimpleSerial when it&#39;s
+        sent). If None, don&#39;t send plaintext.
+    key (bytearray, optional): Key to send to target. Should be unencoded
+        bytearray. If None, don&#39;t send key. Defaults to None.
+    ack (bool, optional): Check for ack when reading response from target.
+        Defaults to True.
+    poll_done (bool, optional): poll Husky to find out when it&#39;s done
+        capturing, instead of calculating the capture time based on the
+        capture parameters. Useful for long trigger-based segmented
+        captures.  Can also result in slightly faster captures when the
+        number of samples is high. Defaults to False. Supported by Husky
+        only.
+    as_int (bool, optional): If False, return trace as a float. Otherwise,
+        return as an int.
+    always_send_key (bool, optional): If True, always send key. Otherwise,
+        only send if the key is different from the last one sent.
+
+Returns:
+    :class:`Trace &lt;chipwhisperer.common.traces.Trace&gt;` or None if capture
+    timed out.
+
+Raises:
+    Warning or OSError: Error during capture.
+
+Example:
+    Capturing a trace::
+
+        import chipwhisperer as cw
+        scope = cw.scope()
+        scope.default_setup()
+        target = cw.target()
+        ktp = cw.ktp.Basic()
+        key, pt = ktp.new_pair()
+        trace = cw.capture_trace(scope, target, pt, key)
+
+.. versionadded:: 5.1
+    Added to simplify trace capture.
+
+.. versionchanged:: 5.2
+    Added ack parameter and use of target.output_len
+
+.. versionchanged:: 5.6.1
+    Added poll_done parameter for Husky
+<span class=" -Color -Color-Red">File:</span>      ~/git/cw_develop/software/chipwhisperer/__init__.py
+<span class=" -Color -Color-Red">Type:</span>      function
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">errors</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "venv39"
+        },
+        kernelOptions: {
+            name: "venv39",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'venv39'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="baud.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">How to change the clock frequency of SimpleSerial targets?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="connect.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basic connection</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NewAE
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
