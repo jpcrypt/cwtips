@@ -204,6 +204,10 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="finding_instructions.html">Which target instruction does this power sample correspond to?</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">RTFM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rtfm/index.html">Getting Started</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -419,106 +423,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="n">File</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_172399</span><span class="o">/</span><span class="mf">1415757765.</span><span class="n">py</span><span class="p">:</span><span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">chipwhisperer</span> <span class="k">as</span> <span class="nn">cw</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">scope</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Husky&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">scope</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">scope</span><span class="o">.</span><span class="n">default_setup</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="nn">File ~/git/cw_trimmed/software/chipwhisperer/__init__.py:397,</span> in <span class="ni">scope</span><span class="nt">(scope_type, name, sn, idProduct, bitstream, force, prog_speed, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">394</span>         <span class="k">raise</span> <span class="ne">ValueError</span>
-<span class="g g-Whitespace">    </span><span class="mi">396</span> <span class="k">if</span> <span class="n">scope_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">397</span>     <span class="n">scope_type</span> <span class="o">=</span> <span class="n">get_cw_type</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">398</span> <span class="n">rtn</span> <span class="p">:</span> <span class="n">scopes</span><span class="o">.</span><span class="n">ScopeTypes</span> <span class="o">=</span> <span class="n">scope_type</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="nn">File ~/git/cw_trimmed/software/chipwhisperer/common/utils/util.py:578,</span> in <span class="ni">get_cw_type</span><span class="nt">(sn, idProduct, hw_location, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">575</span>     <span class="n">possible_ids</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xace0</span><span class="p">,</span> <span class="mh">0xace2</span><span class="p">,</span> <span class="mh">0xace3</span><span class="p">,</span> <span class="mh">0xace5</span><span class="p">,</span> <span class="mh">0xace6</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">577</span> <span class="n">cwusb</span> <span class="o">=</span> <span class="n">NAEUSB_Backend</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">578</span> <span class="n">device</span> <span class="o">=</span> <span class="n">cwusb</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">serial_number</span><span class="o">=</span><span class="n">sn</span><span class="p">,</span> <span class="n">idProduct</span><span class="o">=</span><span class="n">possible_ids</span><span class="p">,</span> <span class="n">hw_location</span><span class="o">=</span><span class="n">hw_location</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">579</span> <span class="n">name</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">getProduct</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">580</span> <span class="n">cwusb</span><span class="o">.</span><span class="n">usb_ctx</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nn">File ~/git/cw_trimmed/software/chipwhisperer/hardware/naeusb/naeusb.py:415,</span> in <span class="ni">NAEUSB_Backend.find</span><span class="nt">(self, serial_number, idProduct, hw_location)</span>
-<span class="g g-Whitespace">    </span><span class="mi">413</span> <span class="n">dev_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_possible_devices</span><span class="p">(</span><span class="n">idProduct</span><span class="p">,</span> <span class="n">attempt_access</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">hw_location</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">414</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dev_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">415</span>     <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Could not find ChipWhisperer. Is it connected?&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">417</span> <span class="c1"># if more than one CW, we require a serial number</span>
-<span class="g g-Whitespace">    </span><span class="mi">418</span> <span class="k">if</span> <span class="n">hw_location</span><span class="p">:</span>
-
-<span class="ne">OSError</span>: Could not find ChipWhisperer. Is it connected?
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s2">&quot;&#39;connect.ipynb&#39;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">cw</span><span class="o">.</span><span class="n">scope_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">cw</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span> <span class="c1"># turn warnings back on</span>
-
-<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/IPython/core/interactiveshell.py:2456,</span> in <span class="ni">InteractiveShell.run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2454</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2455</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2456</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2458</span> <span class="c1"># The code below prevents the output from being displayed</span>
-<span class="g g-Whitespace">   </span><span class="mi">2459</span> <span class="c1"># when using magics with decorator @output_can_be_silenced</span>
-<span class="g g-Whitespace">   </span><span class="mi">2460</span> <span class="c1"># when the last Python token in the expression is a &#39;;&#39;.</span>
-<span class="g g-Whitespace">   </span><span class="mi">2461</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">magic</span><span class="o">.</span><span class="n">MAGIC_OUTPUT_CAN_BE_SILENCED</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-
-<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/IPython/core/magics/execution.py:737,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
-<span class="g g-Whitespace">    </span><span class="mi">735</span>     <span class="k">with</span> <span class="n">preserve_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">user_ns</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">736</span>         <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">user_ns</span><span class="p">[</span><span class="s1">&#39;__file__&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
-<span class="ne">--&gt; </span><span class="mi">737</span>         <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">safe_execfile_ipy</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">raise_exceptions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">738</span>     <span class="k">return</span>
-<span class="g g-Whitespace">    </span><span class="mi">740</span> <span class="c1"># Control the response to exit() calls made by the script being run</span>
-
-<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/IPython/core/interactiveshell.py:2978,</span> in <span class="ni">InteractiveShell.safe_execfile_ipy</span><span class="nt">(self, fname, shell_futures, raise_exceptions)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2976</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">shell_futures</span><span class="o">=</span><span class="n">shell_futures</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2977</span> <span class="k">if</span> <span class="n">raise_exceptions</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2978</span>     <span class="n">result</span><span class="o">.</span><span class="n">raise_error</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">2979</span> <span class="k">elif</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2980</span>     <span class="k">break</span>
-
-<span class="nn">File ~/.pyenv/versions/venv39/lib/python3.9/site-packages/IPython/core/interactiveshell.py:294,</span> in <span class="ni">ExecutionResult.raise_error</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">292</span>     <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_before_exec</span>
-<span class="g g-Whitespace">    </span><span class="mi">293</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_in_exec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">294</span>     <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_in_exec</span>
-
-    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">hidden</span> <span class="mi">1</span> <span class="n">frame</span><span class="p">]</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_172399</span><span class="o">/</span><span class="mf">1415757765.</span><span class="n">py</span><span class="p">:</span><span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">chipwhisperer</span> <span class="k">as</span> <span class="nn">cw</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">scope</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Husky&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">scope</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">scope</span><span class="o">.</span><span class="n">default_setup</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="nn">File ~/git/cw_trimmed/software/chipwhisperer/__init__.py:397,</span> in <span class="ni">scope</span><span class="nt">(scope_type, name, sn, idProduct, bitstream, force, prog_speed, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">394</span>         <span class="k">raise</span> <span class="ne">ValueError</span>
-<span class="g g-Whitespace">    </span><span class="mi">396</span> <span class="k">if</span> <span class="n">scope_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">397</span>     <span class="n">scope_type</span> <span class="o">=</span> <span class="n">get_cw_type</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">398</span> <span class="n">rtn</span> <span class="p">:</span> <span class="n">scopes</span><span class="o">.</span><span class="n">ScopeTypes</span> <span class="o">=</span> <span class="n">scope_type</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">399</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="nn">File ~/git/cw_trimmed/software/chipwhisperer/common/utils/util.py:578,</span> in <span class="ni">get_cw_type</span><span class="nt">(sn, idProduct, hw_location, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">575</span>     <span class="n">possible_ids</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xace0</span><span class="p">,</span> <span class="mh">0xace2</span><span class="p">,</span> <span class="mh">0xace3</span><span class="p">,</span> <span class="mh">0xace5</span><span class="p">,</span> <span class="mh">0xace6</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">577</span> <span class="n">cwusb</span> <span class="o">=</span> <span class="n">NAEUSB_Backend</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">578</span> <span class="n">device</span> <span class="o">=</span> <span class="n">cwusb</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">serial_number</span><span class="o">=</span><span class="n">sn</span><span class="p">,</span> <span class="n">idProduct</span><span class="o">=</span><span class="n">possible_ids</span><span class="p">,</span> <span class="n">hw_location</span><span class="o">=</span><span class="n">hw_location</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">579</span> <span class="n">name</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">getProduct</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">580</span> <span class="n">cwusb</span><span class="o">.</span><span class="n">usb_ctx</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
-<span class="nn">File ~/git/cw_trimmed/software/chipwhisperer/hardware/naeusb/naeusb.py:415,</span> in <span class="ni">NAEUSB_Backend.find</span><span class="nt">(self, serial_number, idProduct, hw_location)</span>
-<span class="g g-Whitespace">    </span><span class="mi">413</span> <span class="n">dev_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_possible_devices</span><span class="p">(</span><span class="n">idProduct</span><span class="p">,</span> <span class="n">attempt_access</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">hw_location</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">414</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dev_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">415</span>     <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;Could not find ChipWhisperer. Is it connected?&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">417</span> <span class="c1"># if more than one CW, we require a serial number</span>
-<span class="g g-Whitespace">    </span><span class="mi">418</span> <span class="k">if</span> <span class="n">hw_location</span><span class="p">:</span>
-
-<span class="ne">OSError</span>: Could not find ChipWhisperer. Is it connected?
-</pre></div>
-</div>
-</div>
 </div>
 <p>There are different ways to get multiple triggers. With the <code class="docutils literal notranslate"><span class="pre">simpleserial-aes</span></code> firmware, the easiest is to use the <code class="docutils literal notranslate"><span class="pre">'n'</span></code> and <code class="docutils literal notranslate"><span class="pre">'f'</span></code> commands so that sending a single plaintext triggers multiple encryptions, each of which raises and lowers the <code class="docutils literal notranslate"><span class="pre">TIO4</span></code> trigger line.</p>
 <p>Let’s trigger 4 encryptions:</p>
@@ -545,6 +449,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;segmenting error, &#39;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -565,6 +474,11 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ttimes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[32500, 32500, 32500]
 </pre></div>
 </div>
 </div>
@@ -597,16 +511,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "venv39"
+            mode: "python"
         },
         kernelOptions: {
-            name: "venv39",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'venv39'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               

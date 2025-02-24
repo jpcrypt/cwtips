@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="How to use segmented capture?" href="segmented.html" />
-    <link rel="prev" title="How to change the clock frequency of SimpleSerial targets?" href="baud.html" />
+    <link rel="prev" title="How to use an external clock?" href="external_clock.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -185,6 +185,7 @@
 <li class="toctree-l1"><a class="reference internal" href="more_samples.html">How to capture more samples than the hardware supports?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">How to use streaming mode?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="baud.html">How to change the clock frequency of SimpleSerial targets?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_clock.html">How to use an external clock?</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic connection</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
@@ -192,11 +193,20 @@
 <li class="toctree-l1"><a class="reference internal" href="segmented.html">How to use segmented capture?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sequenced.html">How to use sequenced triggers?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fast_captures.html">How to speed up captures?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_trigger_times.html">When do triggers occur?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Errors</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="target_errors.html">ERROR: “Target did not ack” or “no trigger seen”</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libusb_error_busy.html">LIBUSB_ERROR_BUSY</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tricky Questions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="finding_instructions.html">Which target instruction does this power sample correspond to?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">RTFM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rtfm/index.html">Getting Started</a></li>
 </ul>
 
     </div>
@@ -459,16 +469,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "venv39"
+            mode: "python"
         },
         kernelOptions: {
-            name: "venv39",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'venv39'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -481,12 +491,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="baud.html"
+       href="external_clock.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">How to change the clock frequency of SimpleSerial targets?</p>
+        <p class="prev-next-title">How to use an external clock?</p>
       </div>
     </a>
     <a class="right-next"

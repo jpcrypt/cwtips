@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'baud';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Basic connection" href="connect.html" />
+    <link rel="next" title="How to use an external clock?" href="external_clock.html" />
     <link rel="prev" title="How to use streaming mode?" href="stream.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -185,17 +185,28 @@
 <li class="toctree-l1"><a class="reference internal" href="more_samples.html">How to capture more samples than the hardware supports?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">How to use streaming mode?</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">How to change the clock frequency of SimpleSerial targets?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_clock.html">How to use an external clock?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connect.html">Basic connection</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="segmented.html">How to use segmented capture?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sequenced.html">How to use sequenced triggers?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fast_captures.html">How to speed up captures?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_trigger_times.html">When do triggers occur?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Errors</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="target_errors.html">ERROR: “Target did not ack” or “no trigger seen”</a></li>
 <li class="toctree-l1"><a class="reference internal" href="libusb_error_busy.html">LIBUSB_ERROR_BUSY</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tricky Questions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="finding_instructions.html">Which target instruction does this power sample correspond to?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">RTFM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rtfm/index.html">Getting Started</a></li>
 </ul>
 
     </div>
@@ -429,7 +440,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clock: 7370129.870130 MHz
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clock: 7363636.363636 MHz
 Baud: 38400 bps
 </pre></div>
 </div>
@@ -480,16 +491,16 @@ Baud: 38400 bps
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "venv39"
+            mode: "python"
         },
         kernelOptions: {
-            name: "venv39",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'venv39'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -511,11 +522,11 @@ Baud: 38400 bps
       </div>
     </a>
     <a class="right-next"
-       href="connect.html"
+       href="external_clock.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Basic connection</p>
+        <p class="prev-next-title">How to use an external clock?</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

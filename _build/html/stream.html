@@ -185,6 +185,7 @@
 <li class="toctree-l1"><a class="reference internal" href="more_samples.html">How to capture more samples than the hardware supports?</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">How to use streaming mode?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="baud.html">How to change the clock frequency of SimpleSerial targets?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_clock.html">How to use an external clock?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connect.html">Basic connection</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Usage</span></p>
@@ -192,6 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="segmented.html">How to use segmented capture?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sequenced.html">How to use sequenced triggers?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fast_captures.html">How to speed up captures?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_trigger_times.html">When do triggers occur?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Common Errors</span></p>
 <ul class="nav bd-sidenav">
@@ -201,6 +203,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tricky Questions</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="finding_instructions.html">Which target instruction does this power sample correspond to?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">RTFM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="rtfm/index.html">Getting Started</a></li>
 </ul>
 
     </div>
@@ -430,6 +436,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(ChipWhisperer Scope WARNING|File ChipWhispererHuskyClock.py:703) Target clock may drop; you may need to reset your target.
+</pre></div>
+</div>
+</div>
 </div>
 <p>Turning on streaming is very simple: just set <code class="docutils literal notranslate"><span class="pre">scope.adc.stream_mode</span></code>.</p>
 <p>Let’s capture 1 million samples:</p>
@@ -448,6 +459,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(ChipWhisperer Scope WARNING|File _OpenADCInterface.py:712) FIFO error occured; see scope.adc.errors for details.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -459,7 +475,7 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sam_errors      = False
 sam_led_setting = Default
 XADC errors     = False
-ADC errors      = False
+ADC errors      = slow FIFO underflow, fast FIFO overflow, 
 extclk error    = False
 trace errors    = False
 </pre></div>
@@ -476,6 +492,11 @@ trace errors    = False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(ChipWhisperer Scope WARNING|File _OpenADCInterface.py:712) FIFO error occured; see scope.adc.errors for details.
+</pre></div>
+</div>
+</div>
 </div>
 <p>On Husky, a failed stream capture may require the notebook to be restarted.</p>
 <p>Finally, note that the stated maximum sampling rate can be exceeded if the capture is relatively short.</p>
@@ -489,12 +510,22 @@ trace errors    = False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(ChipWhisperer Scope WARNING|File ChipWhispererHuskyClock.py:703) Target clock may drop; you may need to reset your target.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">samples</span> <span class="o">=</span> <span class="mi">150000</span>
 <span class="n">trace</span> <span class="o">=</span> <span class="n">cw</span><span class="o">.</span><span class="n">capture_trace</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(ChipWhisperer Scope WARNING|File _OpenADCInterface.py:712) FIFO error occured; see scope.adc.errors for details.
 </pre></div>
 </div>
 </div>
@@ -513,6 +544,16 @@ trace errors    = False
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="n">scope</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">errors</span>
+
+<span class="ne">AssertionError</span>: fast FIFO overflow, 
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 
@@ -525,16 +566,16 @@ trace errors    = False
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "venv39"
+            mode: "python"
         },
         kernelOptions: {
-            name: "venv39",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'venv39'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
